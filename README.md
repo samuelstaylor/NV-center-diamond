@@ -1,2 +1,2 @@
 # NV-center-diamond
-NV center in diamond calculations using Quantum Espresso and WEST
+NV center in diamond calculations using ASE, QE, and WEST
