@@ -22,10 +22,10 @@ In this workflow:
 - The script uses [ASE (Atomic Simulation Environment)](https://ase-lib.org/)
 
 xz-plane 3x3x3 supercell (visualized using [xcrysden](http://www.xcrysden.org/))
-![alt text](xz_3x3x3.png)
+![alt text](images/xz_3x3x3.png)
 
 angled 3x3x3 supercell
-![alt text](angled_3x3x3.png)
+![alt text](images/angled_3x3x3.png)
 
 ### Step 2: Quantum Espresso "relaxation" calculation to get GS geometry and GS energy
 - Use the provided input file `2x2x2/relax/pw_nv_diamond_relax.in` to see how it is set up.
