@@ -16,6 +16,15 @@ gs_etot = float(root.find('output').find('total_energy').find('etot').text) * Ha
 print(f'Ground state total energy: {gs_etot:.6f} eV')
 
 
+# FROM ANALYZING THE OPTIMIZED GROUND STATE IN PART 2
+fname = os.path.join(script_dir, 'dscf/pwscf.save/data-file-schema.xml')
+xmlData = ET.parse(fname)
+root = xmlData.getroot()
+dscf_etot = float(root.find('output').find('total_energy').find('etot').text) * Hartree2eV
+
+print(f'ΔSCF state total energy: {dscf_etot:.6f} eV')
+
+
 # NOTE:
 # - total energy of the optimized excited state can be decomposed into two components:
 #   1.) ground state total energy at this optimized excited state geometry
@@ -48,4 +57,6 @@ print(f'Excited state total energy: {es_etot:.6f} eV')
 # NOTE: The adiabatic excitation energy is the difference between the total energies
 # of the excited and ground states at their respective optimized geometries:
 aee = es_etot - gs_etot
-print(f'Adiabatic excitation energy: {aee:.6f} eV')
+dscf_dif = dscf_etot - gs_etot
+print(f'Adiabatic excitation energy (TDDFT predicted ZPL): {aee:.6f} eV')
+print(f'(ΔSCF energy) - (GS total energy): {dscf_dif:.6f} eV')
