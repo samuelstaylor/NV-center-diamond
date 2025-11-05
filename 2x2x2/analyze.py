@@ -24,6 +24,14 @@ dscf_etot = float(root.find('output').find('total_energy').find('etot').text) * 
 
 print(f'ΔSCF state total energy: {dscf_etot:.6f} eV')
 
+# FROM ANALYZING THE OPTIMIZED GROUND STATE IN PART 2
+fname = os.path.join(script_dir, 'dscf_relax/pwscf.save/data-file-schema.xml')
+xmlData = ET.parse(fname)
+root = xmlData.getroot()
+dscf_etot = float(root.find('output').find('total_energy').find('etot').text) * Hartree2eV
+
+print(f'ΔSCF (relax) state total energy: {dscf_etot:.6f} eV')
+
 
 # NOTE:
 # - total energy of the optimized excited state can be decomposed into two components:
