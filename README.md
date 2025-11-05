@@ -49,7 +49,19 @@ DOI: [10.1021/acs.jctc.3c00986](doi.org/10.1021/acs.jctc.3c00986)
 - Convergence is reached when total forces and energy changes fall below thresholds.
 
 - The optimized ES structure is used to compute the adiabatic excitation energy (AEE)-- which we use to approximate the zero-phonon line (ZPL) by assuming that the zero point energies are similar in the electronic ground and excited states.
+- 
+### Step 4: ΔSCF (Delta Self-Consistent Field) Calculation
 
-### Step 4: Analyze
+The ΔSCF method provides an alternative way to compute excitation energies using ground-state DFT.
+
+Instead of relying on the linear-response formalism of TDDFT, ΔSCF explicitly constructs an excited-state configuration by modifying the Kohn–Sham orbital occupations—typically promoting an electron from a filled state to an empty one while conserving spin and total charge.
+
+A new self-consistent DFT calculation is then performed on this excited configuration to allow the charge density to relax in the presence of the excitation.
+
+The excitation energy is obtained as the total energy difference between the excited-state SCF calculation and the ground-state SCF calculation.
+
+This method often provides accurate results for localized excitations, such as the NV⁻ center’s ³A₂ → ³E transition, and serves as a useful benchmark against TDDFT predictions.
+
+### Step 5: Analyze
 - run the `2x2x2/analyze.py` script to analyze the data and print out the important values
 - the output can be found in `2x2x2/analyze.out`
