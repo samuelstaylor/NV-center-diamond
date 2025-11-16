@@ -65,3 +65,32 @@ This method often provides accurate results for localized excitations, such as t
 ### Step 5: Analyze
 - run the `2x2x2/analyze.py` script to analyze the data and print out the important values
 - the output can be found in `2x2x2/analyze.out`
+
+### Step 6: Calculate Phonon Modes
+
+**a. Ground-state phonon modes:**
+
+- These modes are used to compute **spectral density**, **lineshape function**, and the **PL spectrum**.
+- In the `phonon` folder, create a file `gs-dft-pw.in` containing the **unrelaxed supercell atomic positions** (from Step 1).
+- Follow the instructions in `phonon/README.md` and the calculation details in `NOTES.md`.
+- Run **Phonopy** to generate atomic displacements for each atom ((\pm x, y, z)), taking crystal symmetry into account.
+- Use `header_merge.py` to add control headers to each `supercell-***.in` file.
+- Submit the jobs with `sbatch run_all_jobs.sh` to perform SCF calculations on all displaced structures. This computes **forces on each atom**.
+- Collect all forces and use **Phonopy** to calculate **phonon frequencies and normal modes**, generating a full phonon mesh.
+
+**b. Excited-state phonon modes (vertical approximation):**
+
+- These modes are used to compute **PL spectra via forces**, **absorption spectra**, and **temperature-dependent PL (TD PL)**.
+- In the `phonon` folder, create `es-dft-pw.in` containing the **excited-state geometry** (from TDDFT or ΔSCF).
+- Repeat the same workflow as for the ground state: generate displacements, merge headers, submit jobs, collect forces, and compute phonon frequencies and modes to build a mesh.
+- **Important note:** This workflow calculates **ground-state forces on the excited-state coordinates**.
+
+  * These are not the true excited-state phonon modes/frequencies.
+  * Performing full TDDFT for each displaced geometry would be prohibitively expensive.
+  * This **vertical approximation** captures electron–phonon coupling effects for the excited-state geometry without full TDDFT calculations.
+
+
+### STEP 7: Plot results.
+- run each plot script for individual plots.
+- or run `nv_spectra.py` for all plots.
+- See details on each plot in `2x2x2/README.md`
