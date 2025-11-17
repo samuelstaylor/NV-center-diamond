@@ -17,7 +17,7 @@ atomic_symbols, gs_coord, cell_parameters = parse_atoms_qexml(gs_file)
 _, es_coord, _ = parse_atoms_qexml(es_file)
 
 # Load forces file
-forces_fname = 'github_repos/NV-center-diamond/2x2x2/phonon/es/pwscf.xml'
+forces_fname = 'phonon/es/pwscf.xml'
 atomic_symbols, gs_forces_es_coord = parse_forces_qexml(forces_fname)
 
 mass_list = {'C': 12.0107, 'N': 14.0067}

@@ -8,7 +8,7 @@ import numpy as np
 blue = '#4285F4'
 
 # Load excited-state phonons
-es_phonon_fname = '001_nv_diamond_abs_pl/phonon/es_ph_mesh.hdf5'
+es_phonon_fname = 'phonon/es/es_ph_mesh.hdf5'
 atomic_symbols, gs_coord, cell_parameters = parse_atoms_qexml('relax/pwscf.xml')
 _, es_coord, _ = parse_atoms_qexml('tddft/final_geo/pwscf.xml')
 

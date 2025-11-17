@@ -2,6 +2,7 @@ import os
 import matplotlib.pyplot as plt
 from pypl.hr_solver import hr_solver
 from pypl.utils import parse_phonopy_h5, parse_atoms_qexml
+import numpy as np
 
 blue = '#4285F4'
 red = '#DB4437'
@@ -9,7 +10,7 @@ red = '#DB4437'
 # Load PL spectral density
 gs_phonon_file = 'phonon/gs/gs-ph-mesh.hdf5'
 gs_file = 'relax/pwscf.xml'
-es_phonon_fname = '001_nv_diamond_abs_pl/phonon/es_ph_mesh.hdf5'
+es_phonon_fname = 'phonon/es/es_ph_mesh.hdf5'
 atomic_symbols, gs_coord, cell_parameters = parse_atoms_qexml(gs_file)
 _, es_coord, _ = parse_atoms_qexml('tddft/final_geo/pwscf.xml')
 

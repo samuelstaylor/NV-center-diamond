@@ -1,7 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 from pypl.hr_solver import hr_solver
-from pypl.utils import parse_phonopy_h5, parse_atoms_qexml
+from pypl.utils import parse_phonopy_h5, parse_atoms_qexml, parse_forces_qexml
 
 # Colors for plotting
 deep_violet = '#9D80B8'
@@ -14,7 +14,7 @@ colors = [deep_violet, vibrant_purple, soft_coral, ocean_blue, goldenrod_yellow]
 # Load phonons and coordinates
 gs_phonon_file = 'phonon/gs/gs-ph-mesh.hdf5'
 gs_file = 'relax/pwscf.xml'
-forces_fname = 'github_repos/NV-center-diamond/2x2x2/phonon/es/pwscf.xml'
+forces_fname = 'phonon/es/pwscf.xml'
 
 gs_phonon_freqs, gs_phonon_modes = parse_phonopy_h5(gs_phonon_file)
 atomic_symbols, gs_coord, cell_parameters = parse_atoms_qexml(gs_file)

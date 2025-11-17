@@ -20,7 +20,7 @@ Steps of phonon calculations using Phonopy and Quantum ESPRESSO
     phonopy --qe -f supercell-{001..078}.out
 ```
 
-5. Compute phonon frequencies and modes. Creates the file: `mesh.hdf5`. Rename it to `gs_ph_mesh.hdf5`
+5. Compute phonon frequencies and modes. Creates the files: `phonopy.yaml` and `mesh.hdf5`. Rename latter to `gs_ph_mesh.hdf5`
 ```
     phonopy --dim="1 1 1" --fc-symmetry --mesh="1 1 1" --eigenvectors --writefc --qe -c gs-dft-pw.in --mesh-format=hdf5
 ```
