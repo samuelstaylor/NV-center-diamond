@@ -216,19 +216,21 @@ colors = [
     emerald_green,
 ]
 
+
+max_val = 0.0
+
 for i in range(len(spectral_density_pl_dis)):
     axis = spectral_density_pl_dis[i][0]
     values = spectral_density_pl_dis[i][1]
     ax.plot(axis, values, color=colors[i],
             label=r'$\sigma=[%.1f, %.1f]$' % (sigmas[i][0], sigmas[i][1]))
+    max_val = max(max_val, np.max(values))  # track the highest y value
 
+ax.set_xlabel('$\\hbar\\omega$ (meV)')
+ax.set_ylabel('$S(\\hbar\\omega)$ (1/meV)')
+ax.set_xlim(0,200)
+ax.set_ylim(0, max_val * 1.05)  # set y-limit slightly above max
 ax.legend()
-ax.set_xlabel('$\\hbar\\omega$ (meV)')     # energy axis labeled as ħω in meV
-ax.set_ylabel('$S(\\hbar\\omega)$ (1/meV)')  # normalization depends on implementation
-ax.set_ylim([0, 0.15])
-ax.set_xlim([0, 200])
-
-# Save figure; create 'images' folder first if it does not exist.
 os.makedirs("images", exist_ok=True)
 plt.savefig("images/spectral_density.png", bbox_inches='tight', dpi=200)
 
@@ -299,7 +301,7 @@ print("Saved plots: spectral_density.png, lineshape_function.png, pl_spectrum.pn
 # but computed with the ground-state potential (or the appropriate choice).
 # The file forces_fname should contain forces for each atom in the same ordering.
 # -------------------------------------------------------------------------
-forces_fname = 'github_repos/NV-center-diamond/2x2x2/phonon/es/pwscf.xml'
+forces_fname = 'phonon/es/pwscf.xml'
 atomic_symbols, gs_forces_es_coord = parse_forces_qexml(forces_fname)
 
 # Create a new hr_solver instance (or reuse the previous one) and compute HR via forces
@@ -344,7 +346,7 @@ plt.savefig("images/pl_forces.png", bbox_inches='tight', dpi=200)
 # This may be informative because excited-state geometry often has different
 # normal modes and frequencies (mode softening/hardening).
 # -------------------------------------------------------------------------
-es_phonon_fname = '001_nv_diamond_abs_pl/phonon/es_ph_mesh.hdf5'
+es_phonon_fname = 'phonon/es/es_ph_mesh.hdf5'
 es_phonon_freqs, es_phonon_modes = parse_phonopy_h5(es_phonon_fname)
 
 # Compute HR for absorption (projecting displacements appropriate for absorption)
