@@ -26,6 +26,37 @@ The accuracy depends on how much the electronic structure changes between GS and
 ✅ So yes, the “gs_forces_at_es_coord” folder is doing exactly this: using the vertical approximation to get approximate ES phonons.
 ```
 
+# 🟢 Summary
+
+Here is the hierarchy of approximations:
+
+### **1. Exact excited-state phonons**
+
+TDDFT (or ΔSCF) forces for *every displaced structure*
+→ extremely expensive
+→ almost no one does this
+
+### **2. Your method: vertical ES approximation**
+
+ES geometry, but **GS forces for displacements**
+→ captures geometry change
+→ captures ES curvature differences approximately
+→ what WEST allows right now
+→ more accurate than EMA
+
+### **3. EMA (equal-mode approximation)**
+
+ES phonons = GS phonons
+→ cheapest
+→ widely used
+
+You are using method **#2**.
+
+---
+
+If you want, I can help you add a short explanation of this to your README so it's scientifically precise.
+
+
 the informationon the final TDDFT positions is in:
 NV-center-diamond/2x2x2/tddft/final_geo/pw.in
 
