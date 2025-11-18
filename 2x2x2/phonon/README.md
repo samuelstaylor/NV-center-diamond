@@ -1,10 +1,15 @@
 Steps of phonon calculations using Phonopy and Quantum ESPRESSO
 
-1. Generate displacements (from the ground state structure)
+1. Generate displacements (from the relaxed ground state structure)
 ```
     phonopy --qe -d --dim="1 1 1" -c gs-dft-pw.in -v
 ```
 
+1a. Optional: to preserve original displacements
+```
+    mkdir displacements
+    mv supercell*.in displacements/
+```
 2. With the `generated supercell-***.in` files, append the header for each scf calculation. Use script `header_merge.py` to do this
 ```
     python header_merge.py

@@ -1,4 +1,6 @@
-# -- MASTER PLOTTING FILE -- BASED OFF OF PYPL TUTORIAL BUT FULLY COMMENTED
+# -- MASTER PLOTTING FILE -- BASED OFF OF PYPL TUTORIAL 1 Huang-Rhys Theory BUT FULLY COMMENTED
+# cd to:        NV-center-diamond/2x2x2/
+# use command:  python plot_scripts/nv_spectra_hr.py
 # ---------------------------------------------------------------------------
 # Tutorial-style, fully commented version of the PL (photoluminescence)
 # processing script using PyPL's Huang-Rhys solver.
@@ -70,7 +72,7 @@ os.chdir(path)
 #       - A₂ / E: irreducible representations of C3v (symmetry labels)
 #       These labels describe symmetry/spin, not file content or units.
 # ------------------------------------------------------------------------
-gs_phonon_file = 'phonon/gs/gs-ph-mesh.hdf5'
+gs_phonon_file = 'phonon/gs-unrelaxed/gs-ph-mesh.hdf5'#NOTE: CHANGE THIS TO GS-RELAXED when finished
 gs_file = 'relax/pwscf.xml'
 es_file = 'tddft/final_geo/pwscf.xml'
 
@@ -231,8 +233,8 @@ ax.set_ylabel('$S(\\hbar\\omega)$ (1/meV)')
 ax.set_xlim(0,200)
 ax.set_ylim(0, max_val * 1.05)  # set y-limit slightly above max
 ax.legend()
-os.makedirs("images", exist_ok=True)
-plt.savefig("images/spectral_density.png", bbox_inches='tight', dpi=200)
+os.makedirs("images/huang_rhys", exist_ok=True)
+plt.savefig("images/huang_rhys/spectral_density.png", bbox_inches='tight', dpi=200)
 
 # -------------------------------------------------------------------------
 # COMPUTE LINESHAPE VIA FFT (time-domain autocorrelation → Fourier Transform)
@@ -262,7 +264,7 @@ ax.set_xlabel('$\\hbar\\omega$ (meV)')
 ax.set_ylabel('$A(\\hbar\\omega)$ (arb. units; check docs)')   # units are implementation-dependent
 ax.set_ylim([0, 10])
 ax.set_xlim([-100, 800])
-plt.savefig("images/lineshape_function.png", bbox_inches='tight', dpi=200)
+plt.savefig("images/huang_rhys/lineshape_function.png", bbox_inches='tight', dpi=200)
 
 # -------------------------------------------------------------------------
 # COMPUTE PHOTOLUMINESCENCE (PL) SPECTRUM USING LINESHAPE
@@ -284,7 +286,7 @@ ax.set_xlabel('$\\hbar\\omega$ (meV)')
 ax.set_ylabel('PL (arb. unit)')
 ax.set_xlim([1300, 2000])
 ax.set_ylim([0, 10])
-plt.savefig("images/pl_spectrum.png", bbox_inches='tight', dpi=200)
+plt.savefig("images/huang_rhys/pl_spectrum.png", bbox_inches='tight', dpi=200)
 
 print("Saved plots: spectral_density.png, lineshape_function.png, pl_spectrum.png")
 
@@ -336,7 +338,7 @@ ax.set_xlabel('$\\hbar\\omega$ (meV)')
 ax.set_ylabel('PL (arb. unit)')
 ax.set_xlim([1300, 2000])
 ax.set_ylim([0, 10])
-plt.savefig("images/pl_forces.png", bbox_inches='tight', dpi=200)
+plt.savefig("images/huang_rhys/pl_forces.png", bbox_inches='tight', dpi=200)
 
 # -------------------------------------------------------------------------
 # ABSORPTION SPECTRUM (USING EXCITED-STATE PHONONS)
@@ -378,7 +380,7 @@ ax.set_xlabel('$\\hbar\\omega$ (meV)')
 ax.set_ylabel('$S(\\hbar\\omega)$ (meV)')
 ax.set_xlim(0, 200)
 ax.set_ylim(0.0, 0.1)
-plt.savefig("images/abs_spectrum.png", bbox_inches='tight', dpi=200)
+plt.savefig("images/huang_rhys/abs_spectrum.png", bbox_inches='tight', dpi=200)
 
 # Compute lineshape and absorption spectrum (frequency-domain)
 lineshape_fft_abs_dis = abs_use_dis.compute_lineshape_fft(
@@ -402,7 +404,7 @@ ax.set_xlabel('$\\hbar\\omega$ (meV)')
 ax.set_ylabel('Absorption / PL (arb. unit)')
 ax.set_xlim(1500, 2400)
 ax.set_ylim([0, 10])
-plt.savefig("images/pl_absorption.png", bbox_inches='tight', dpi=200)
+plt.savefig("images/huang_rhys/pl_absorption.png", bbox_inches='tight', dpi=200)
 
 # -------------------------------------------------------------------------
 # TEMPERATURE-DEPENDENT PL (USING FORCES-BASED HR)
@@ -459,9 +461,9 @@ ax.set_xlabel('$\\hbar\\omega$ (meV)')
 ax.set_ylabel('PL (arb. unit)')
 ax.set_xlim([1400, 2100])
 ax.set_ylim([0, 10 + len(temps)])  # allow vertical room for stacked plots
-plt.savefig("images/td_pl.png", bbox_inches='tight', dpi=200)
+plt.savefig("images/huang_rhys/td_pl.png", bbox_inches='tight', dpi=200)
 
-print("All done. Check the images/ directory for generated plots.")
+print("All done. Check the images/huang_rhys/ directory for generated plots.")
 
 # ---------------------------------------------------------------------------
 # QUICK TROUBLESHOOTING / DEBUG CHECKLIST (for you while learning)

@@ -1,10 +1,13 @@
 #!/bin/bash
+#SBATCH --job-name=nv-es-dft-forces
 #SBATCH --time=04:00:00
 #SBATCH --partition=caslake
 #SBATCH --account=pi-gagalli
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=48
 #SBATCH --cpus-per-task=1
+#SBATCH --output=slurm_%j.out
+#SBATCH --error=slurm_%j.err
 
 module load intel/19.1.1
 module load intelmpi/2019.up7+intel-19.1.1

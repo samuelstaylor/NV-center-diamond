@@ -146,7 +146,3 @@ This project generates multiple plots analyzing Huang–Rhys factors, spectral d
 * Lineshape computed for each temperature.
 * ZPL broadening adjusted per temperature.
 * Curves are vertically offset for clarity in visualization.
-
----
-
-Do you want me to also **add these descriptions as top-of-file docstrings in each Python script** so they appear when someone opens the file?

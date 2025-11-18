@@ -99,3 +99,9 @@ This method often provides accurate results for localized excitations, such as t
 - run each plot script for individual plots.
 - or run `nv_spectra.py` for all plots.
 - See details on each plot in `2x2x2/README.md`
+
+
+NOTE: 11/18:
+- WAITING ON GS PHONON CALCULATIONS (WITH PROPER RELAXED GEOMETRY)
+- WAITING ON NEW DELTA SCF CALCULATION. LOWERED MIXING_BETA --> SHOULD CONVERGE
+- ONCE IT IS CONVERGED, WE CAN CONTINUE FROM THE TUTORIAL PART 2 ON PL

@@ -30,7 +30,11 @@ occupations = 'from_input'
 electron_maxstep = 300
 conv_thr = 1.0d-8
 mixing_mode = 'plain'
-mixing_beta = 0.3
+mixing_beta = 0.3 ! ρ_new​ = ρ_old ​+ β*(ρ_out ​− ρ_old​)
+                    ! General rule:
+                    ! - Metals → β = 0.1–0.2
+                    ! - Insulators → β = 0.3–0.7
+                    ! - Excited-state ΔSCF → β = 0.1–0.3 (must be small because excited states are unstable)
 diagonalization = 'david'
 diago_full_acc = .TRUE.
 startingpot = 'atomic'
