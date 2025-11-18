@@ -62,6 +62,11 @@ The excitation energy is obtained as the total energy difference between the exc
 
 This method often provides accurate results for localized excitations, such as the NV⁻ center’s ³A₂ → ³E transition, and serves as a useful benchmark against TDDFT predictions.
 
+NOTE: DEPENDENTING ON WHAT YOU WANT THERE ARE TWO TYPES OF CALCULATIONS TO RUN:
+- If you want a vertical ΔSCF (excited-state energy/forces at the ground-state geometry) — do NOT move ions; keep calculation = 'scf' and do not run ionic relaxation.
+
+- If you want the adiabatic excited-state geometry (i.e. relax the structure on the excited-state PES), then allow ions to move and use calculation = 'relax' (or vc-relax if you want cell relaxation) with the ΔSCF occupations fixed at every ionic step.
+
 ### Step 5: Analyze
 - run the `2x2x2/analyze.py` script to analyze the data and print out the important values
 - the output can be found in `2x2x2/analyze.out`
