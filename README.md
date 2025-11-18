@@ -71,7 +71,8 @@ This method often provides accurate results for localized excitations, such as t
 **a. Ground-state phonon modes:**
 
 - These modes are used to compute **spectral density**, **lineshape function**, and the **PL spectrum**.
-- In the `phonon` folder, create a file `gs-dft-pw.in` containing the **unrelaxed supercell atomic positions** (from Step 1).
+- In the `phonon` folder, create a file `gs-dft-pw.in` containing *relaxed ground-state geometry* obtained from Step 2 (QE relaxation).
+    - Note: using unrelaxed geometry is not recommended and will generally produce imaginary phonon frequencies since the structure is not a minimum of the potential energy surface.
 - Follow the instructions in `phonon/README.md` and the calculation details in `NOTES.md`.
 - Run **Phonopy** to generate atomic displacements for each atom ((\pm x, y, z)), taking crystal symmetry into account.
 - Use `header_merge.py` to add control headers to each `supercell-***.in` file.
@@ -87,6 +88,10 @@ This method often provides accurate results for localized excitations, such as t
 
   * These are not the true excited-state phonon modes/frequencies.
   * Performing full TDDFT for each displaced geometry would be prohibitively expensive.
+  * A widely used simplification is the equal-mode approximation (EMA), which assumes:
+  *   The excited-state potential energy surface is a rigid shift of the ground-state PES.
+      - Under EMA:
+      - Ground-state phonon frequencies and modes are reused for the excited state.
   * This **vertical approximation** captures electron–phonon coupling effects for the excited-state geometry without full TDDFT calculations.
 
 
