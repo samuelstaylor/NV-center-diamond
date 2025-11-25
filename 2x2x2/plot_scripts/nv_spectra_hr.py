@@ -72,7 +72,7 @@ os.chdir(path)
 #       - A₂ / E: irreducible representations of C3v (symmetry labels)
 #       These labels describe symmetry/spin, not file content or units.
 # ------------------------------------------------------------------------
-gs_phonon_file = 'phonon/gs-unrelaxed/gs-ph-mesh.hdf5'#NOTE: CHANGE THIS TO GS-RELAXED when finished
+gs_phonon_file = 'phonon/gs-relaxed/gs_ph_mesh.hdf5'#NOTE: CHANGE THIS TO GS-RELAXED when finished
 gs_file = 'relax/pwscf.xml'
 es_file = 'tddft/final_geo/pwscf.xml'
 
