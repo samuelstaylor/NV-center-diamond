@@ -113,7 +113,10 @@ WEST is capable of computing ES forces, but full ES phonons are not yet practica
 - or run `nv_spectra.py` for all plots.
 - See details on each plot in `2x2x2/README.md`
 
-### Step 8: Compute Photoluminescence (PL) and Absorption Spectra (1D-CCD Method)
+### Step 8: Compute Photoluminescence (PL) and Absorption Spectra (1D-CCD Method) 
+- calculations in `github_repos/NV-center-diamond/2x2x2/phonon/002_nv_diamond_1d_ccd`
+- using `generate.py` generate all the images of the movement from the gs geometry to the es geometry.
+- calculate es and gs at each image their using `./run_all.sh`
 - This step uses the ground-state and excited-state geometries to compute ZPL, PL, and absorption spectra through the 1D configurational coordinate diagram (1D-CCD) method.
 - The GS and ES phonon calculations (Step 6) generate a series of displaced geometries (“images”), each representing motion along the dominant vibrational coordinate.
 - For each image, forces and energies are computed; from these, the mass-weighted displacement ΔQ, phonon frequencies, and vibrational modes are extracted.
