@@ -73,13 +73,13 @@ es_rel_coord = []
 
 for i in range(len(relative_coordinates)):
     # Ground state
-    gs_file = f"002_nv_diamond_1d_ccd/gs_1d_ccd/Image-{i+1}/pwscf.xml"
+    gs_file = f"phonon/002_nv_diamond_1d_ccd/gs_1d_ccd/Image-{i+1}/pwscf.xml"
     if os.path.exists(gs_file):
         gs_rel_coord.append(i)
         gs_energies[i] = parse_total_energy_qexml(gs_file)
 
     # Excited state
-    es_file = f"002_nv_diamond_1d_ccd/es_1d_ccd/Image-{i+1}/pwscf.xml"
+    es_file = f"phonon/002_nv_diamond_1d_ccd/es_1d_ccd/Image-{i+1}/pwscf.xml"
     if os.path.exists(es_file):
         es_rel_coord.append(i)
         es_energies[i] = parse_total_energy_qexml(es_file)
@@ -241,10 +241,15 @@ plt.savefig("images/1d_ccd/plot_2.png", bbox_inches='tight', dpi=200)
 # ------------------------------------------------------------------------------
 print("\n=== Computing full HR spectra (all phonon modes) ===")
 
-gs_phonon_file = "001_nv_diamond_abs_pl/phonon/gs_ph_mesh.hdf5"
-es_phonon_file = "001_nv_diamond_abs_pl/phonon/es_ph_mesh.hdf5"
-gs_file = "001_nv_diamond_abs_pl/gs_dft/pwscf.xml"
-es_file = "001_nv_diamond_abs_pl/es_cdft/pwscf.xml"
+# gs_phonon_file = "001_nv_diamond_abs_pl/phonon/gs_ph_mesh.hdf5"
+# es_phonon_file = "001_nv_diamond_abs_pl/phonon/es_ph_mesh.hdf5"
+# gs_file = "001_nv_diamond_abs_pl/gs_dft/pwscf.xml"
+# es_file = "001_nv_diamond_abs_pl/es_cdft/pwscf.xml"
+
+gs_phonon_file = "phonon/gs-relaxed/gs_ph_mesh.hdf5"
+es_phonon_file = "phonon/es/es_ph_mesh.hdf5"
+gs_file = "phonon/gs-relaxed/pwscf.xml" # NOTE SAM FIX THIS
+es_file = "phonon/es/pwscf.xml"
 
 gs_freqs, gs_modes = parse_phonopy_h5(gs_phonon_file)
 es_freqs, es_modes = parse_phonopy_h5(es_phonon_file)
