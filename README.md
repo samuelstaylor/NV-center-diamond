@@ -99,13 +99,28 @@ NOTE: DEPENDENTING ON WHAT YOU WANT THERE ARE TWO TYPES OF CALCULATIONS TO RUN:
       - Ground-state phonon frequencies and modes are reused for the excited state.
   * This **vertical approximation** captures electron–phonon coupling effects for the excited-state geometry without full TDDFT calculations.
 
+ True TDDFT phonons are prohibitively expensive.
+Thus, the Equal Mode Approximation (EMA) is commonly used:
+
+ES PES is treated as a rigid shift of the GS PES
+
+GS phonon modes are reused for ES in spectral calculations
+
+WEST is capable of computing ES forces, but full ES phonons are not yet practical.
 
 ### STEP 7: Plot results.
 - run each plot script for individual plots.
 - or run `nv_spectra.py` for all plots.
 - See details on each plot in `2x2x2/README.md`
 
+### Step 8: Compute Photoluminescence (PL) and Absorption Spectra (1D-CCD Method)
+- This step uses the ground-state and excited-state geometries to compute ZPL, PL, and absorption spectra through the 1D configurational coordinate diagram (1D-CCD) method.
+- The GS and ES phonon calculations (Step 6) generate a series of displaced geometries (“images”), each representing motion along the dominant vibrational coordinate.
+- For each image, forces and energies are computed; from these, the mass-weighted displacement ΔQ, phonon frequencies, and vibrational modes are extracted.
+- Using GS ↔ ES energy differences along ΔQ, a 1D potential energy curve is built for each electronic state.
+- The overlap between GS and ES vibrational wavefunctions yields Franck–Condon factors, which determine:
+- the PL spectrum (ES → GS transitions),
+- the absorption spectrum (GS → ES transitions),
+- and the ZPL position.
+- With these FC factors and the chosen linewidths/broadening parameters, the code constructs the final PL and absorption spectra, which can then be plotted and compared to experiment or other theoretical methods.
 
-NOTE: 12/4:
-- no 2x2x2 or 3x3x3 delta scf converged despite the attempts
-- 4x4x4 converged for delta scf and delta scf relax
