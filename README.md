@@ -71,7 +71,7 @@ NOTE: DEPENDENTING ON WHAT YOU WANT THERE ARE TWO TYPES OF CALCULATIONS TO RUN:
 - run the `2x2x2/analyze.py` script to analyze the data and print out the important values
 - the output can be found in `2x2x2/analyze.out`
 
-### Step 6: Calculate Phonon Modes
+### Step 6: Calculate Phonon Modes (see [https://miccompy.github.io/pypl/tutorial.html](url))
 
 **a. Ground-state phonon modes:**
 
@@ -124,3 +124,8 @@ WEST is capable of computing ES forces, but full ES phonons are not yet practica
 - and the ZPL position.
 - With these FC factors and the chosen linewidths/broadening parameters, the code constructs the final PL and absorption spectra, which can then be plotted and compared to experiment or other theoretical methods.
 
+
+### STEP 9: Plot results.
+- run each plot script for individual plots.
+- or run `nv_spectra_1d_ccd.py` for all plots.
+- See details on each plot in `2x2x2/README.md`
