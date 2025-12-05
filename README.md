@@ -132,3 +132,6 @@ WEST is capable of computing ES forces, but full ES phonons are not yet practica
 - run each plot script for individual plots.
 - or run `nv_spectra_1d_ccd.py` for all plots.
 - See details on each plot in `2x2x2/README.md`
+
+NOTE:
+- $\Delta$SCF would not converge for 2x2x2, 3x3x3 supercells. See the attempts to get convergence in their respective directories.
