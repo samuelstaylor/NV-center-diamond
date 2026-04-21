@@ -71,42 +71,57 @@ NOTE: DEPENDENTING ON WHAT YOU WANT THERE ARE TWO TYPES OF CALCULATIONS TO RUN:
 - run the `2x2x2/analyze.py` script to analyze the data and print out the important values
 - the output can be found in `2x2x2/analyze.out`
 
-### Step 6: Calculate Phonon Modes (see [https://miccompy.github.io/pypl/tutorial.html](url))
+### Step 6: Calculate Phonon Modes (see https://miccompy.github.io/pypl/tutorial.html)
 
 **a. Ground-state phonon modes:**
 
-- These modes are used to compute **spectral density**, **lineshape function**, and the **PL spectrum**.
-- In the `phonon` folder, create a file `gs-dft-pw.in` containing *relaxed ground-state geometry* obtained from Step 2 (QE relaxation).
-    - Note: using unrelaxed geometry is not recommended and will generally produce imaginary phonon frequencies since the structure is not a minimum of the potential energy surface.
-- Follow the instructions in `phonon/README.md` and the calculation details in `NOTES.md`.
-- Run **Phonopy** to generate atomic displacements for each atom ((\pm x, y, z)), taking crystal symmetry into account.
+- These modes are used to compute the **spectral density**, **lineshape function**, and **photoluminescence (PL) spectrum**.
+- In the `phonon` folder, create a file `gs-dft-pw.in` containing the *relaxed ground-state geometry* obtained from Step 2 (QE relaxation).
+  - Note: using an unrelaxed geometry is not recommended and will generally produce imaginary phonon frequencies since the structure is not at a minimum of the ground-state potential energy surface.
+- Follow the instructions in `phonon/README.md` and `NOTES.md`.
+- Run **Phonopy** to generate atomic displacements for each atom along ±x, ±y, ±z directions, taking crystal symmetry into account.
 - Use `header_merge.py` to add control headers to each `supercell-***.in` file.
-- Submit the jobs with `sbatch run_all_jobs.sh` to perform SCF calculations on all displaced structures. This computes **forces on each atom**.
-- Collect all forces and use **Phonopy** to calculate **phonon frequencies and normal modes**, generating a full phonon mesh.
+- Submit the jobs using `sbatch run_all_jobs.sh` to perform SCF calculations on all displaced structures. This yields **forces on atoms for each displacement**.
+- Collect all forces and use **Phonopy** to compute **phonon frequencies and normal modes**, constructing the ground-state phonon mesh.
 
-**b. Excited-state phonon modes (vertical approximation):**
+---
 
-- These modes are used to compute **PL spectra via forces**, **absorption spectra**, and **temperature-dependent PL (TD PL)**.
-- In the `phonon` folder, create `es-dft-pw.in` containing the **excited-state geometry** (from TDDFT or ΔSCF).
-- Repeat the same workflow as for the ground state: generate displacements, merge headers, submit jobs, collect forces, and compute phonon frequencies and modes to build a mesh.
-- **Important note:** This workflow calculates **ground-state forces on the excited-state coordinates**.
+**b. Excited-state geometry phonon analysis (vertical approximation):**
 
-  * These are not the true excited-state phonon modes/frequencies.
-  * Performing full TDDFT for each displaced geometry would be prohibitively expensive.
-  * A widely used simplification is the equal-mode approximation (EMA), which assumes:
-  *   The excited-state potential energy surface is a rigid shift of the ground-state PES.
-      - Under EMA:
-      - Ground-state phonon frequencies and modes are reused for the excited state.
-  * This **vertical approximation** captures electron–phonon coupling effects for the excited-state geometry without full TDDFT calculations.
+- These calculations are used to compute **PL spectra via forces**, **absorption spectra**, and **temperature-dependent PL (TD-PL)**.
+- In the `phonon` folder, create `es-dft-pw.in` containing the **relaxed excited-state geometry** obtained from TDDFT or ΔSCF (Step 3/4).
+- Repeat the same Phonopy workflow: generate displacements, run SCF calculations, collect forces, and construct the phonon mesh.
 
- True TDDFT phonons are prohibitively expensive.
-Thus, the Equal Mode Approximation (EMA) is commonly used:
+- **Important clarification:**
+  This procedure does *not* compute true excited-state phonon modes or the excited-state Hessian.
 
-ES PES is treated as a rigid shift of the GS PES
+  Instead, it evaluates **ground-state DFT forces at the excited-state equilibrium geometry**, which are then projected onto a phonon basis.
 
-GS phonon modes are reused for ES in spectral calculations
+---
 
-WEST is capable of computing ES forces, but full ES phonons are not yet practical.
+**Equal Mode Approximation (EMA):**
+
+- In practical vibronic calculations, it is commonly assumed that the vibrational normal modes of the ground and excited electronic states are approximately identical.
+
+- This assumption is called the **Equal Mode Approximation (EMA)** (also known as the *parallel-mode approximation*).
+
+- Mathematically, EMA assumes:
+  - The phonon frequencies are approximately equal:
+    \( \omega_k^{(g)} \approx \omega_k^{(e)} \)
+  - The normal mode eigenvectors are approximately identical:
+    \( \mathbf{e}_k^{(g)} \approx \mathbf{e}_k^{(e)} \)
+
+- Physically, this means the excited-state potential energy surface is approximated as a **rigidly shifted version of the ground-state harmonic potential**, with unchanged curvature.
+
+- Under EMA:
+  - A single set of ground-state phonon modes is used as a common vibrational basis for both electronic states.
+  - Electron–phonon coupling is described entirely by the displacement between equilibrium geometries projected onto these shared modes.
+
+- This approximation enables efficient computation of vibrationally resolved spectra (PL and absorption) without requiring explicit excited-state phonon calculations.
+
+- Fully computing excited-state phonons via TDDFT or linear-response methods is typically computationally prohibitive for large defect supercells.
+
+- Note: WEST can compute excited-state forces, but full excited-state phonon spectra are not currently practical for routine use.
 
 ### STEP 7: Plot results.
 - run each plot script for individual plots.
