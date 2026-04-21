@@ -99,11 +99,11 @@ NOTE: DEPENDENTING ON WHAT YOU WANT THERE ARE TWO TYPES OF CALCULATIONS TO RUN:
 
 ---
 
-**Equal Mode Approximation (EMA):**
+**Note about: Equal Mode Approximation (EMA) / Displaced Harmonic Approximation:**
 
 - In practical vibronic calculations, it is commonly assumed that the vibrational normal modes of the ground and excited electronic states are approximately identical.
 
-- This assumption is called the **Equal Mode Approximation (EMA)** (also known as the *parallel-mode approximation*).
+- This assumption is called the **Equal Mode Approximation (EMA)** (also known as the *parallel-mode approximation* or *displaced harmonic approximation*).
 
 - Mathematically, EMA assumes:
   - The phonon frequencies are approximately equal:
@@ -112,6 +112,7 @@ NOTE: DEPENDENTING ON WHAT YOU WANT THERE ARE TWO TYPES OF CALCULATIONS TO RUN:
     \( \mathbf{e}_k^{(g)} \approx \mathbf{e}_k^{(e)} \)
 
 - Physically, this means the excited-state potential energy surface is approximated as a **rigidly shifted version of the ground-state harmonic potential**, with unchanged curvature.
+- Thus, you do not need to compute excited state phonon modes, you approximate they are the same as the ground state!
 
 - Under EMA:
   - A single set of ground-state phonon modes is used as a common vibrational basis for both electronic states.
